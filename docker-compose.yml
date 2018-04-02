@@ -1,0 +1,25 @@
+version: "2"
+services:
+  teampass:
+      image: teampass/teampass
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - "./volumes/teampass:/var/www/html"
+      environment:
+        VIRTUAL_HOST: secure.riffin.ml
+      links:
+        - db
+      
+  db:
+      image: mysql:latest
+      ports:
+          - "3306:3306"
+      volumes:
+          - "./volumes/mysql:/var/lib/mysql"
+      environment:
+          - MYSQL_DATABASE=teampass
+          - MYSQL_PASSWORD=qwerty
+          - MYSQL_ROOT_PASSWORD=qwe123!@#
+          - MYSQL_USER=teampass
